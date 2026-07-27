@@ -9,6 +9,7 @@ import { Badge } from "@/components/ui/badge";
 import type { QuizQuestion } from "@/lib/course-data";
 import { storageKeys } from "@/lib/storage";
 import { BilingualCopy } from "@/components/app/bilingual-copy";
+import { withBasePath } from "@/lib/base-path";
 import { cn } from "@/lib/utils";
 
 type AttemptSnapshot = {
@@ -102,7 +103,7 @@ export function ModuleQuiz({
 
   async function persistRemotely(snapshot: AttemptSnapshot) {
     await Promise.allSettled([
-      fetch("/api/quiz-attempts", {
+      fetch(withBasePath("/api/quiz-attempts"), {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -112,7 +113,7 @@ export function ModuleQuiz({
           answers: snapshot.answers,
         }),
       }),
-      fetch("/api/progress", {
+      fetch(withBasePath("/api/progress"), {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({

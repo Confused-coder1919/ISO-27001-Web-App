@@ -12,6 +12,7 @@ import { readSimulationStore, writeSimulationStore } from "@/lib/learning-insigh
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { BilingualCopy } from "@/components/app/bilingual-copy";
+import { withBasePath } from "@/lib/base-path";
 import { cn } from "@/lib/utils";
 
 type TreatmentValue = "mitigate" | "avoid" | "transfer" | "accept";
@@ -101,7 +102,7 @@ export function RiskTreatmentStudio({
 
       writeSimulationStore(nextState);
 
-      void fetch("/api/simulations", {
+      void fetch(withBasePath("/api/simulations"), {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({

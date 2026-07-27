@@ -4,6 +4,8 @@ ISO 27001 Lab is a bilingual learning platform for ISO/IEC 27001 with English, F
 
 The app combines guided learning, clause exploration, control discovery, risk treatment practice, SoA simulation, audit drills, nonconformity classification, and learner progress tracking in one product surface.
 
+**Production:** [https://linguistic-communication.com/iso-27001-lab](https://linguistic-communication.com/iso-27001-lab)
+
 ## Recruiter snapshot
 - Bilingual ISO 27001 product built for real learner workflows, not generic documentation browsing
 - Strong full-stack evidence: Next.js 16, React 19, TypeScript, Tailwind, Supabase, and structured course data
@@ -145,6 +147,7 @@ Set these in `.env.local` when enabling Supabase:
 
 ```bash
 NEXT_PUBLIC_SITE_URL=http://localhost:3000
+NEXT_PUBLIC_BASE_PATH=
 NEXT_PUBLIC_SUPABASE_URL=...
 NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY=...
 NEXT_PUBLIC_SUPABASE_ANON_KEY=...
@@ -180,14 +183,24 @@ pnpm build
 
 ## Deployment
 
-The app is ready for deployment on Vercel or any Node-compatible host.
+The public LC deployment uses an isolated Vercel project behind the Linguistic Communication Nginx reverse proxy:
 
-Recommended production steps:
+```text
+https://linguistic-communication.com/iso-27001-lab
+  -> Nginx on the LC VPS
+  -> https://iso-27001-lab-lc.vercel.app/iso-27001-lab
+```
 
-1. Deploy the Next.js app.
-2. Set `NEXT_PUBLIC_SITE_URL` to the production origin.
-3. Configure the public Supabase credentials.
-4. Add the production auth callback URL in Supabase.
+The isolated project sets:
+
+```bash
+NEXT_PUBLIC_BASE_PATH=/iso-27001-lab
+NEXT_PUBLIC_SITE_URL=https://linguistic-communication.com/iso-27001-lab
+```
+
+The original Vercel project does not set `NEXT_PUBLIC_BASE_PATH`, so its root deployment remains compatible. Client-side API requests use `withBasePath()` to remain under the correct deployment path.
+
+When enabling Supabase, configure its public credentials and add the production `/auth/callback` URL to the Supabase allowlist.
 
 ## Fully implemented
 

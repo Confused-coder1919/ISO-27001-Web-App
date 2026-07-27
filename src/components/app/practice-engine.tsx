@@ -20,6 +20,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
 import { BilingualCopy } from "@/components/app/bilingual-copy";
+import { withBasePath } from "@/lib/base-path";
 import { cn } from "@/lib/utils";
 
 const confidenceOptions: Array<{
@@ -116,7 +117,7 @@ export function PracticeEngine() {
   async function persistPractice(nextAttempts: StoredPracticeAttempt[]) {
     writePracticeAttempts({ attempts: nextAttempts });
 
-    await fetch("/api/simulations", {
+    await fetch(withBasePath("/api/simulations"), {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({

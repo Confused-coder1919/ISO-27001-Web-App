@@ -18,6 +18,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { BilingualCopy } from "@/components/app/bilingual-copy";
 import { WorkplacePhrasingPanel } from "@/components/app/workplace-phrasing-panel";
+import { withBasePath } from "@/lib/base-path";
 import { cn } from "@/lib/utils";
 
 type Applicability = "applicable" | "not-applicable" | "pending";
@@ -111,7 +112,7 @@ export function SoaBuilderStudio({
 
       writeSimulationStore(nextState);
 
-      void fetch("/api/simulations", {
+      void fetch(withBasePath("/api/simulations"), {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({

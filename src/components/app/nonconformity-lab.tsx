@@ -14,6 +14,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { BilingualCopy } from "@/components/app/bilingual-copy";
 import { WorkplacePhrasingPanel } from "@/components/app/workplace-phrasing-panel";
+import { withBasePath } from "@/lib/base-path";
 import { cn } from "@/lib/utils";
 import type { FindingSeverity } from "@/lib/course-data";
 
@@ -121,7 +122,7 @@ export function NonconformityLab() {
 
     writeSimulationStore(nextState);
 
-    await fetch("/api/simulations", {
+    await fetch(withBasePath("/api/simulations"), {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({

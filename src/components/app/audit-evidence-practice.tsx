@@ -15,6 +15,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { BilingualCopy } from "@/components/app/bilingual-copy";
 import { WorkplacePhrasingPanel } from "@/components/app/workplace-phrasing-panel";
+import { withBasePath } from "@/lib/base-path";
 import { cn } from "@/lib/utils";
 
 type DrillAnswer = {
@@ -69,7 +70,7 @@ export function AuditEvidencePractice() {
 
     writeSimulationStore(nextState);
 
-    await fetch("/api/simulations", {
+    await fetch(withBasePath("/api/simulations"), {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
