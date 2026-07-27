@@ -1,8 +1,15 @@
+import { notFound } from "next/navigation";
 import { Badge } from "@/components/ui/badge";
 import { BilingualCopy } from "@/components/app/bilingual-copy";
 import { ContentStudio } from "@/components/app/content-studio";
 
+export const dynamic = "force-dynamic";
+
 export default function AdminPage() {
+  if (process.env.ENABLE_CONTENT_STUDIO !== "true") {
+    notFound();
+  }
+
   return (
     <main className="mx-auto w-full max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
       <section className="rounded-[2.5rem] border border-white/70 bg-white/82 p-6 shadow-[0_34px_90px_-56px_rgba(15,23,42,0.42)] backdrop-blur-sm md:p-8">

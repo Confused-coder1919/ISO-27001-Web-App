@@ -58,8 +58,8 @@ The app combines guided learning, clause exploration, control discovery, risk tr
 - `/compare` standards and framework comparison
 - `/glossary` glossary and bilingual terminology explorer
 - `/dashboard` learner dashboard
-- `/admin` content studio
-- `/content-studio` alias for `/admin`
+- `/admin` content studio, disabled by default in public deployments
+- `/content-studio` alias for `/admin`, disabled by default in public deployments
 - `/annex-a` compatibility redirect to `/control-library`
 
 ## Stack
@@ -148,12 +148,15 @@ Set these in `.env.local` when enabling Supabase:
 ```bash
 NEXT_PUBLIC_SITE_URL=http://localhost:3000
 NEXT_PUBLIC_BASE_PATH=
+ENABLE_CONTENT_STUDIO=false
 NEXT_PUBLIC_SUPABASE_URL=...
 NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY=...
 NEXT_PUBLIC_SUPABASE_ANON_KEY=...
 ```
 
 `NEXT_PUBLIC_SUPABASE_ANON_KEY` is supported as a compatibility alias.
+
+Set `ENABLE_CONTENT_STUDIO=true` only in a trusted local or access-controlled environment. Public deployments return `404` for `/admin` and `/content-studio` by default.
 
 ## Supabase setup
 
